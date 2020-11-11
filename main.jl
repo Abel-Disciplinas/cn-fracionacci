@@ -34,7 +34,8 @@ end
 """
     tabela()
 
-Produz uma tabela pro somao. Acabe de preenchê-la.
+Produz uma tabela pro somao. Acabe de preenchê-la calculando S e E.
+S é a soma com n termos e E é o erro para o valor real da série: π + 4.
 """
 function tabela(io::IO = stdout)
     k = 0
@@ -45,6 +46,8 @@ function tabela(io::IO = stdout)
     println(io, "|  n | S                 | Erro Abs   |")
     println(io, "|----|-------------------|------------|")
     while S != S₀ && n < 100
+        S₀ = S
+        # Calcule
         ## AQUI
         s = @sprintf("| %2d | %17.15lf | %10.4e |", n, S, E)
         println(io, s)
@@ -68,9 +71,9 @@ começando em t = 1 até n. Considere também os números de Fibonacci Fₙ,
 já conhecidos.
 Queremos calcular
 
-    γₙ = Lₙ / Fₙ, n > 0
+    γₙ = Lₙ / Fₙ, n > 0.
 
-usando BigFloat. Chamaremos de Fracionacci.
+Chamaremos de Fracionacci.
 
     γ₁ = 1.0, γ₂ = 3.0, γ₃ = 2.0, γ₄ = 7/3, …
 
@@ -87,10 +90,15 @@ end
 Esta função deve fazer 4 gráficos na mesma figura.
 Use linha pontilhada e marcador circular de tamanho 3 para cada ponto.
 
-Na posição (1,1), um gráfico de γ (já preenchido).
-Na posição (1,2), um gráfico de |γ - √5|.
-Na posição (2,1), um gráfico de |γ - √5| na escala log no eixo y.
-Na posição (2,2), um gráfico do taxa de decréscimo do erro |γₙ - √5| / |γₙ₋₁ - √5|.
+Na posição (1,1), um gráfico de iteração por γ (já preenchido).
+Na posição (1,2), um gráfico de iteração por |γ - √5|.
+Na posição (2,1), um gráfico de iteração por |γ - √5| na escala log no eixo y.
+Na posição (2,2), um gráfico de iteração pela taxa de decréscimo do erro |γₙ - √5| / |γₙ₋₁ - √5|.
+
+Suba o gráfico para o GitHub também.
+
+O que podemos afirmar sobre a convergência da sequência γₙ?
+Escreva sua resposta num arquivo resposta.txt e suba para o GitHub também.
 """
 function fracionacci_imagens()
     γ = fracionacci(30)
@@ -98,4 +106,5 @@ function fracionacci_imagens()
     p = plot(layout=layout, leg=false)
     plot!(p[1], γ, lw=1, l=:dash, marker='.', ms=3)
     ## AQUI
+    png(p, "fracionacci-imagem")
 end

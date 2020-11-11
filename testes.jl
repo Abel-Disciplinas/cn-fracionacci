@@ -39,3 +39,8 @@ end
 
     fracionacci_imagens()
 end
+
+@testset "Arquivos existem" begin
+    @test isfile("fracionacci-imagem.png")
+    @test isfile("resposta.txt")
+end
